@@ -5,10 +5,13 @@ import 'package:patterns_getx/model/post_model.dart';
 import 'package:patterns_getx/pages/home_page.dart';
 import 'package:patterns_getx/services/http_service.dart';
 
+import 'home_controller.dart';
+
 class UpdateController extends GetxController {
   var isLoading = false.obs;
   var titleTextEditingController = TextEditingController().obs;
   var bodyTextEditingController = TextEditingController().obs;
+  final _homeController = Get.put(HomeController());
 
   apiPostUpdate(BuildContext context) async {
     isLoading(true);
@@ -18,7 +21,8 @@ class UpdateController extends GetxController {
     var response = await Network.PUT(Network.API_UPDATE + '1', Network.paramsUpdate(post));
 
     if (response != null) {
-      Navigator.pushNamedAndRemoveUntil(context, HomePage.id, (route) => false);
+      Navigator.of(context).pop();
+      _homeController.apiPostList();
     }
 
     isLoading(false);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:patterns_getx/controllers/create_controller.dart';
 import 'package:patterns_getx/controllers/home_controller.dart';
 import 'package:patterns_getx/pages/create_page.dart';
 import 'package:patterns_getx/views/item_of_post.dart';

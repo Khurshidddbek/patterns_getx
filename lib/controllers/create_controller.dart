@@ -1,14 +1,15 @@
 import 'dart:math';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:patterns_getx/controllers/home_controller.dart';
 import 'package:patterns_getx/model/post_model.dart';
-import 'package:patterns_getx/pages/home_page.dart';
 import 'package:patterns_getx/services/http_service.dart';
 
 class CreateController extends GetxController {
   var isLoading = false.obs;
   var titleTextEditingController = TextEditingController().obs;
   var bodyTextEditingController = TextEditingController().obs;
+  final _homeController = Get.put(HomeController());
 
   apiPostCreate(BuildContext context)  async {
     isLoading(true);
@@ -18,7 +19,11 @@ class CreateController extends GetxController {
     var response = await Network.GET(Network.API_CREATE, Network.paramsCreate(post));
 
     if (response != null) {
-      Navigator.pushNamedAndRemoveUntil(context, HomePage.id, (route) => false);
+      Navigator.of(context).pop();
+      _homeController.apiPostList();
+      titleTextEditingController().text = '';
+      bodyTextEditingController().text = '';
+
     }
 
     isLoading(false);
